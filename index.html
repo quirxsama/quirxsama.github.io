@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="description" content="QuirxKaan, kim ki bu? Neredendir neler yapar, neler sever!">
+    <title>Quirx'in Köşesi</title>
+    <link rel="stylesheet" href="styles.css">
+    <link type="image/x-icon" rel="icon" href="assets/favicon.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <meta property="og:title" content="Beni Tanı">
+    <meta property="og:description" content="Kim bu Kaan? Buradan öğren işte.">
+    <meta property="og:image" content="https://quirxkaan.space/assets/uzayli.png">
+    <meta property="og:url" content="https://quirxkaan.space">
+    <meta property="og:type" content="website">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Yeni: Responsive destek -->
+    <link href="https://fonts.googleapis.com/css2?family=Lemon&family=Dancing+Script&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-waves">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
+    <!-- Language selector'ı güncelle -->
+    <div class="language-selector" id="lang-switch">
+        🇹🇷
+    </div>
+
+    <nav class="nav">
+        <div class="logo" data-page="home">Quirx'in Köşesi</div>
+        <div class="menu">
+            <div class="menu-item" data-page="home">Ana Sayfa</div>
+            <div class="menu-item" data-page="about">Hakkımda</div>
+            <div class="menu-item" data-page="gallery">Galeri</div>
+            <div class="menu-item" data-page="b" style="display: none;">B?</div>
+        </div>
+    </nav>
+
+    <div id="home" class="page active">
+        <section class="hero">
+            <h1>Hoş Geldiniz</h1>
+            <p>Beni Tanımak İçin En iyi Yer</p>
+            <button class="hero-button" data-page="about">
+                Kim bu Kaan?
+                <div class="button-details">
+                    Beni<br>
+                    Tanımak için<br>
+                    En İyi Yer
+                </div>
+            </button>
+            <div class="quote">Ey geceyi ve kahverengi bir düzeni taşıyan ellerim, yüzümün uğultusuyla şaşırtın beni!</div>
+        </section>
+    </div>
+
+    <div id="about" class="page">
+        <div class="about-section">
+            <div class="about-content" data-section="who">
+                <h2 class="about-title">Ben Kimim?</h2>
+                <div class="title-underline"></div>
+                <p class="about-text">Ben Kaan, 18 yaşındayım ve acemi bir geliştiriciyim. Antalya'da yaşıyorum aynı zamanda sayısal bölümü 12. Sınıf öğrencisiyim.</p>
+                <div class="next-section">↓</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Galeri sayfası ayrı bir sayfa olarak -->
+    <div id="gallery" class="page gallery-page">
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="assets/pamuk.jpg" alt="Kedim">
+            </div>
+            <div class="gallery-item">
+                <img src="assets/dbdbirak.jpg" alt="DBD Bırak">
+            </div>
+            <div class="gallery-item">
+                <img src="assets/foto3.jpg" alt="mesi">
+            </div>
+            <div class="gallery-item">
+                <img src="assets/foto4.jpg" alt="Yaptıysa adamın dibidir.">
+            </div>
+            <div class="gallery-item">
+                <img src="assets/foto5.jpg" alt="Galeri Resim 5">
+            </div>
+            <div class="gallery-item">
+                <img src="assets/foto6.jpg" alt="Galeri Resim 6">
+            </div>
+
+            <!-- Videolar -->
+            <div class="gallery-item video">
+                <video src="assets/video1.mp4" poster="assets/video1-thumb.jpg"></video>
+                <div class="play-button">
+                    <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">0:00</div>
+                <div class="video-loading"></div>
+            </div>
+            <div class="gallery-item video">
+                <video src="assets/video2.mp4" poster="assets/video2-thumb.jpg"></video>
+                <div class="play-button">
+                    <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">0:00</div>
+                <div class="video-loading"></div>
+            </div>
+            <div class="gallery-item video">
+                <video src="assets/video3.mp4" poster="assets/video3-thumb.jpg"></video>
+                <div class="play-button">
+                    <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">0:00</div>
+                <div class="video-loading"></div>
+            </div>
+            <div class="gallery-item video">
+                <video src="assets/video4.mp4" poster="assets/video4-thumb.jpg"></video>
+                <div class="play-button">
+                    <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">0:00</div>
+                <div class="video-loading"></div>
+            </div>
+            <div class="gallery-item video">
+                <video src="assets/video5.mp4" poster="assets/video5-thumb.jpg"></video>
+                <div class="play-button">
+                    <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">0:00</div>
+                <div class="video-loading"></div>
+            </div>
+            <div class="gallery-item video">
+                <video src="assets/video6.mp4" poster="assets/video6-thumb.jpg"></video>
+                <div class="play-button">
+                    <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">0:00</div>
+                <div class="video-loading"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gallery-overlay">
+        <div class="media-container">
+            <img src="" alt="Büyütülmüş galeri resmi">
+            <video src="" controls></video>
+        </div>
+    </div>
+
+    <div id="b" class="page">
+        <section class="love-note-container">
+            <div class="love-note-text">
+                <h2>To My Beloved</h2>
+                <p> Geçirdiğimiz zaman, oynadığımız oyunlar, tartıştığımız sorular. Hepsi bütünüyle bizi oluşturuyor.
+                    Sana olan o hislerimi ve seninle olan ilişkimi tanımlamak çok zor.
+                    Beraber yaptğımız her şey bana aynı hissi veriyor. Sen sanki Benim vücudumdaki bakterilerin antibiyotiğisin.
+                    Stardew Valley'de beraber çiftlik kurmak, Outlast'da beraber korkmak, Minectaft'ta birlikte yaratmak, birlikte fotoğraflar çekmek, birlikte yemek yapmak, birlikte yemek, birlikte ağlamak, birlikte gülmek, birlikte mutlu olmak, birlikte üzülmek.
+                    Hepsi bence bizi biribirimize ait kılan şeylerdi.
+                    <br/><br/>
+                    Kaleiçindeki adama karşı olan o merhametin, dışarıdaki o evsiz kediyi sahiplenmen, diğerleri gibi farklı olmaya çalışmadan farklı olabilmen, hayatta her zaman tutunabilecek bir dal olduğunu hatırlatman... Seni sen yapan ve O seni sevmemi sağlayan şeylerden...
+                    <br/>
+                    <br/><br/>
+                    Toparlamak gerekirse... Zaten bildiğin üzere; seni seviyorum, sevdim, seveceğim.
+                </p>
+            </div>
+            <div class="romantic-gallery">
+                <div class="album-container">
+                    <div class="album-navigation">
+                        <button class="album-btn prev-album">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div class="album-center-area"></div>
+                        <button class="album-btn next-album">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="album-slides">
+                        <img src="assets/b/stardew.png" alt="Fotoğraf 1" class="active">
+                        <img src="assets/b/bardak.jpg" alt="Fotoğraf 2">
+                        <img src="assets/b/gul.jpg" alt="Fotoğraf 3">
+                        <img src="assets/b/golge.jpg" alt="Fotoğraf 4">
+                        <img src="assets/b/b.jpg" alt="Fotoğraf 5">
+                        <img src="assets/b/k.jpg" alt="Fotoğraf 6">
+                        <img src="assets/b/kopke.jpg" alt="Fotoğraf 7">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Müzik çalar div'inden önce ekle -->
+    <button class="mobile-gallery-btn" data-page="gallery">
+        <i class="fas fa-images"></i>
+    </button>
+    <!-- Mobil galeri butonunun üstüne yeni B? butonu ekleniyor -->
+    <button class="mobile-b-btn">B?</button>
+
+    <div class="music-player">
+        <button class="radio-toggle" id="radio-toggle">
+            📻
+        </button>
+        <div class="player-container" id="player-container">
+            <div class="song-info">
+                <div class="song-title" id="song-title"></div>
+                <div class="song-artist" id="song-artist"></div>
+            </div>
+            
+            <div class="progress-container">
+                <input type="range" id="song-progress" min="0" max="100" value="0">
+                <div class="time-info">
+                    <span id="current-time">0:00</span>
+                    <span id="duration">0:00</span>
+                </div>
+            </div>
+            
+            <div class="volume-control-wrapper">
+                <i class="fas fa-volume-up volume-icon" id="volume-icon"></i>
+                <input type="range" id="volume-control" min="0" max="100" value="50">
+            </div>
+            
+            <div class="controls-container">
+                <button class="control-btn" id="prev-btn"><i class="fas fa-backward"></i></button>
+                <button class="control-btn" id="play-btn"><i class="fas fa-play"></i></button>
+                <button class="control-btn" id="next-btn"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Album overlay'i ekle (</body> tag'inden önce) -->
+    <div class="album-overlay">
+        <div class="album-overlay-content">
+            <button class="close-overlay">×</button>
+            <img src="" alt="Büyütülmüş fotoğraf">
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
