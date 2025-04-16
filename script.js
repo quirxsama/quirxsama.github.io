@@ -140,7 +140,7 @@ const aboutSections = {
     },
     'favorites': {
         title: 'Benim *En*lerim',
-        text: 'En sevdiğim film No Country for Old Men, dizi olarak Smallville ve anime olarak One Piece favorilerim. Kitaplarda ise Suç ve Ceza en çok beğendiğim eser, müzik olarak ise APT., Die with A Smile ve IDOL sürekli dinlediğim şarkılar. Programlama dillerinde ise Go ve React benim en sevdiğim diller.',
+        text: 'Dizi olarak Mr Robot ve Dexter favorilerim. Anime olarak One Piece favorilerim. Kitaplarda ise Suç ve Ceza en çok beğendiğim eser, müzik olarak ise APT., Die with A Smile ve IDOL sürekli dinlediğim şarkılar. Programlama dillerinde ise Go ve React benim en sevdiğim diller.',
         next: 'social'
     },
     'social': {
@@ -237,7 +237,7 @@ const translations = {
             },
             favorites: {
                 title: "Benim *En*lerim",
-                text: "Dizi olarak Smallville ve anime olarak One Piece favorilerim. Kitaplarda ise Vadideki Zambak en çok beğendiğim eser, Şu sıralar dinlediğim müziklere radyo ikonundan erişebilirsiniz. Programlama konusunda React ve Go kullanmayı severim."
+                text: "Dizi olarak Mr Robot ve Dexter favorilerim. Anime olarak One Piece favorim. Kitaplarda ise Vadideki Zambak en çok beğendiğim eser, şu sıralar dinlediğim müziklere radyo ikonundan erişebilirsiniz. Programlama konusunda React ve Go kullanmayı severim."
             },
             social: {
                 title: "Sosyal Medya",
@@ -277,7 +277,7 @@ const translations = {
             },
             favorites: {
                 title: "My Favorites",
-                text: "Smallville as a TV series and One Piece as an anime are my favorites. In books, Lily of the Valley is my favorite work, you can access the music I am currently listening to from the radio icon. I like to use React and Go for programming."
+                text: "Mr Robot and Dexter as TV series are my favorites. One Piece is my favorite anime. In books, Lily of the Valley is my favorite work, you can access the music I am currently listening to from the radio icon. I like to use React and Go for programming."
             },
             social: {
                 title: "Social Media",
@@ -298,7 +298,7 @@ const translations = {
         },
         hero: {
             welcome: "Witaj",
-            subtitle: "Najlepsze miejsce, aby mnie poznać",
+            subtitle: "Bajeczne miejsce, by mnie poznać",
             button: "Kim jest Kaan?",
             quote: "O moje ręce niosące noc i brązowy porządek, zaskocz mnie szumem mojej twarzy!"
         },
@@ -317,7 +317,7 @@ const translations = {
             },
             favorites: {
                 title: "Moje Ulubione",
-                text: "Smallville jako serial i One Piece jako anime to moje ulubione. Wśród książek, Lilia w Dolinie to moje ulubione dzieło, możesz uzyskać dostęp do muzyki, której obecnie słucham, z ikony radia. Lubię używać React i Go do programowania."
+                text: "Mr Robot i Dexter jako seriale to moje ulubione. One Piece to moje ulubione anime. Wśród książek, Lilia w Dolinie to moje ulubione dzieło, możesz uzyskać dostęp do muzyki, której obecnie słucham, z ikony radia. Lubię używać React i Go do programowania."
             },
             social: {
                 title: "Media Społecznościowe",
@@ -338,7 +338,7 @@ const translations = {
         },
         hero: {
             welcome: "Willkommen",
-            subtitle: "Der beste Ort, um mich kennenzulernen",
+            subtitle: "Beste Ort, um mich kennenzulernen",
             button: "Wer ist Kaan?",
             quote: "Oh meine Hände, die die Nacht und eine braune Ordnung tragen, überrascht mich mit dem Summen meines Gesichts!"
         },
@@ -357,7 +357,7 @@ const translations = {
             },
             favorites: {
                 title: "Meine Favoriten",
-                text: "Smallville als TV-Serie und One Piece als Anime sind meine Favoriten. Bei Büchern ist Die Lilie im Tal mein Lieblingswerk, du kannst auf die Musik, die ich gerade höre, über das Radio-Symbol zugreifen. Ich benutze gerne React und Go zum Programmieren."
+                text: "Mr Robot und Dexter als TV-Serien sind meine Favoriten. One Piece ist mein Lieblingsanime. Bei Büchern ist Die Lilie im Tal mein Lieblingswerk, du kannst auf die Musik, die ich gerade höre, über das Radio-Symbol zugreifen. Ich benutze gerne React und Go zum Programmieren."
             },
             social: {
                 title: "Soziale Medien",
@@ -1125,96 +1125,4 @@ function updateAlbum(direction) {
             ease: "power2.inOut"
         }
     );
-}
-
-let keySequence = '';
-const turabiAudio = new Audio('assets/music/turabi.mp3');
-let turabiMode = false;
-
-document.addEventListener('keydown', (e) => {
-    keySequence += e.key.toLowerCase();
-    if (keySequence.includes('pussy')) {
-        if (!turabiMode) {
-            createTurabiIcon();
-        }
-        keySequence = '';
-    }
-    // Reset sequence after 2 seconds of no input
-    setTimeout(() => keySequence = '', 2000);
-});
-
-function createTurabiIcon() {
-    const icon = document.createElement('div');
-    icon.className = 'turabi-icon';
-    icon.innerHTML = `<img src="assets/turabi.png" alt="Turabi">`;
-    document.body.appendChild(icon);
-
-    icon.addEventListener('click', activateTurabiMode);
-}
-
-function activateTurabiMode() {
-    if (turabiMode) return;
-    turabiMode = true;
-
-    // Stop current music player if playing
-    if (isPlaying) {
-        audio.pause();
-        playBtn.innerHTML = '<i class="fas fa-play"></i>';
-        radioToggle.classList.remove('pulse');
-        isPlaying = false;
-    }
-
-    // Create fullscreen Turabi gif
-    const turabiOverlay = document.createElement('div');
-    turabiOverlay.className = 'turabi-overlay';
-    turabiOverlay.innerHTML = `<img src="assets/turabi.gif" alt="Turabi Dance">`;
-    document.body.appendChild(turabiOverlay);
-
-    // Play Turabi music
-    turabiAudio.volume = 0.5;
-    turabiAudio.play();
-
-    // Remove Turabi icon
-    document.querySelector('.turabi-icon')?.remove();
-
-    // Listen for music end
-    turabiAudio.addEventListener('ended', () => {
-        turabiOverlay.remove();
-        replaceAllText();
-        turabiMode = false;
-    });
-
-    // Add animation to overlay
-    gsap.from(turabiOverlay, {
-        opacity: 0,
-        scale: 0,
-        duration: 1,
-        ease: "elastic.out(1, 0.5)"
-    });
-}
-
-function replaceAllText() {
-    const newText = {
-        'tr': "wine me dine me",
-        'en': "wine me dine me",
-        'pl': "wine me dine me",
-        'de': "wine me dine me"
-    };
-    const textElements = document.querySelectorAll('h1, h2, p, button, .menu-item, .logo');
-    
-    textElements.forEach(element => {
-        if (element.children.length === 0) {
-            gsap.to(element, {
-                opacity: 0,
-                duration: 0.3,
-                onComplete: () => {
-                    element.textContent = newText[currentLang];
-                    gsap.to(element, {
-                        opacity: 1,
-                        duration: 0.3
-                    });
-                }
-            });
-        }
-    });
 }
