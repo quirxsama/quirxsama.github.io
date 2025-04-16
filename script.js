@@ -453,13 +453,13 @@ const songs = [
         src: "assets/music/music1.mp3"
     },
     {
-        title: "Tot Musica",
-        artist: "Ado",
+        title: "Dernière danse",
+        artist: "Indila",
         src: "assets/music/music2.mp3"
     },
     {
-        title: "Fireworks",
-        artist: "Kenshi Yonezu",
+        title: "Show",
+        artist: "Ado",
         src: "assets/music/music3.mp3"
     }
 ];
