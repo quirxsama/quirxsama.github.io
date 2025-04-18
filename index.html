@@ -7,9 +7,9 @@
     <title>Quirx'in Köşesi</title>
     <link rel="stylesheet" href="styles.css">
     <link type="image/x-icon" rel="icon" href="assets/favicon.png">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js" defer></script>
     <meta property="og:title" content="Beni Tanı">
     <meta property="og:description" content="Kim bu Kaan? Buradan öğren işte.">
     <meta property="og:image" content="https://quirxkaan.space/assets/uzayli.png">
@@ -71,27 +71,39 @@
     <div id="gallery" class="page gallery-page">
         <div class="gallery-grid">
             <div class="gallery-item">
-                <img src="assets/pamuk.jpg" alt="Kedim">
+                <img src="assets/pamuk.jpg" alt="Kedim" loading="lazy">
             </div>
             <div class="gallery-item">
-                <img src="assets/dbdbirak.jpg" alt="DBD Bırak">
+                <img src="assets/dbdbirak.jpg" alt="DBD Bırak" loading="lazy">
             </div>
             <div class="gallery-item">
-                <img src="assets/foto3.jpg" alt="mesi">
+                <img src="assets/foto3.jpg" alt="mesi" loading="lazy">
             </div>
             <div class="gallery-item">
-                <img src="assets/foto4.jpg" alt="Yaptıysa adamın dibidir.">
+                <img src="assets/foto4.jpg" alt="Yaptıysa adamın dibidir." loading="lazy">
             </div>
             <div class="gallery-item">
-                <img src="assets/foto5.jpg" alt="Galeri Resim 5">
+                <img src="assets/foto5.jpg" alt="Galeri Resim 5" loading="lazy">
             </div>
             <div class="gallery-item">
-                <img src="assets/foto6.jpg" alt="Galeri Resim 6">
+                <img src="assets/foto6.jpg" alt="Galeri Resim" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="assets/foto7.png" alt="Galeri Resim" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="assets/foto8.jpg" alt="Galeri Resim" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="assets/foto9.jpg" alt="Galeri Resim" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="assets/foto10.jpg" alt="Galeri Resim" loading="lazy">
             </div>
 
             <!-- Videolar -->
             <div class="gallery-item video">
-                <video src="assets/video1.mp4" poster="assets/video1-thumb.jpg"></video>
+                <video src="assets/video1.mp4" loading="lazy" preload="metadata"></video>
                 <div class="play-button">
                     <i class="fas fa-play"></i>
                 </div>
@@ -99,7 +111,7 @@
                 <div class="video-loading"></div>
             </div>
             <div class="gallery-item video">
-                <video src="assets/video2.mp4" poster="assets/video2-thumb.jpg"></video>
+                <video src="assets/video2.mp4" loading="lazy" preload="metadata"></video>
                 <div class="play-button">
                     <i class="fas fa-play"></i>
                 </div>
@@ -107,7 +119,7 @@
                 <div class="video-loading"></div>
             </div>
             <div class="gallery-item video">
-                <video src="assets/video3.mp4" poster="assets/video3-thumb.jpg"></video>
+                <video src="assets/video3.mp4" loading="lazy" preload="metadata"></video>
                 <div class="play-button">
                     <i class="fas fa-play"></i>
                 </div>
@@ -115,7 +127,7 @@
                 <div class="video-loading"></div>
             </div>
             <div class="gallery-item video">
-                <video src="assets/video4.mp4" poster="assets/video4-thumb.jpg"></video>
+                <video src="assets/video4.mp4" loading="lazy" preload="metadata"></video>
                 <div class="play-button">
                     <i class="fas fa-play"></i>
                 </div>
@@ -123,7 +135,7 @@
                 <div class="video-loading"></div>
             </div>
             <div class="gallery-item video">
-                <video src="assets/video5.mp4" poster="assets/video5-thumb.jpg"></video>
+                <video src="assets/video5.mp4" loading="lazy" preload="metadata"></video>
                 <div class="play-button">
                     <i class="fas fa-play"></i>
                 </div>
@@ -131,20 +143,71 @@
                 <div class="video-loading"></div>
             </div>
             <div class="gallery-item video">
-                <video src="assets/video6.mp4" poster="assets/video6-thumb.jpg"></video>
+                <video src="assets/video6.mp4" loading="lazy" preload="metadata"></video>
                 <div class="play-button">
                     <i class="fas fa-play"></i>
                 </div>
                 <div class="video-duration">0:00</div>
                 <div class="video-loading"></div>
+            </div>
+            <div class="gallery-item video">
+                <video src="assets/video7.mp4" loading="lazy" preload="metadata"></video>
+                <div class="play-button">
+                    <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">0:00</div>
+                <div class="video-loading"></div>
+            </div>
+            <div class="gallery-item video">
+                <video src="assets/video8.mp4" loading="lazy" preload="metadata"></video>
+                <div class="play-button">
+                    <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">0:00</div>
+                <div class="video-loading"></div>
+            </div>
+            <div class="gallery-item video">
+                <video src="assets/video9.mp4" loading="lazy" preload="metadata"></video>
+                <div class="play-button">
+                    <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">0:00</div>
+                <div class="video-loading"></div>
+            </div>
+            <div class="gallery-item video">
+                <video src="assets/video10.mp4" loading="lazy" preload="metadata"></video>
+                <div class="play-button">
+                    <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">0:00</div>
+                <div class="video-loading"></div>
+                
+            </div>
+            <div class="gallery-item video">
+                <video src="assets/video11.mp4" loading="lazy" preload="metadata"></video>
+                <div class="play-button">
+                    <i class="fas fa-play"></i>
+                </div>
+                <div class="video-duration">0:00</div>
+                <div class="video-loading"></div>
+                
+                <div class="gallery-item video">
+                    <video src="assets/video12.mp4" loading="lazy" preload="metadata"></video>
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-duration">0:00</div>
+                    <div class="video-loading"></div>
+                    
+                </div>
             </div>
         </div>
     </div>
 
     <div class="gallery-overlay">
         <div class="media-container">
-            <img src="" alt="Büyütülmüş galeri resmi">
-            <video src="" controls></video>
+            <img src="" alt="Büyütülmüş galeri resmi" loading="lazy">
+            <video src="" controls preload="metadata"></video>
         </div>
     </div>
 
@@ -176,13 +239,13 @@
                         </button>
                     </div>
                     <div class="album-slides">
-                        <img src="assets/b/stardew.png" alt="Fotoğraf 1" class="active">
-                        <img src="assets/b/bardak.jpg" alt="Fotoğraf 2">
-                        <img src="assets/b/gul.jpg" alt="Fotoğraf 3">
-                        <img src="assets/b/golge.jpg" alt="Fotoğraf 4">
-                        <img src="assets/b/b.jpg" alt="Fotoğraf 5">
-                        <img src="assets/b/k.jpg" alt="Fotoğraf 6">
-                        <img src="assets/b/kopke.jpg" alt="Fotoğraf 7">
+                        <img src="assets/b/stardew.png" alt="Fotoğraf 1" class="active" loading="lazy">
+                        <img src="assets/b/bardak.jpg" alt="Fotoğraf 2" loading="lazy">
+                        <img src="assets/b/gul.jpg" alt="Fotoğraf 3" loading="lazy">
+                        <img src="assets/b/golge.jpg" alt="Fotoğraf 4" loading="lazy">
+                        <img src="assets/b/b.jpg" alt="Fotoğraf 5" loading="lazy">
+                        <img src="assets/b/k.jpg" alt="Fotoğraf 6" loading="lazy">
+                        <img src="assets/b/kopke.jpg" alt="Fotoğraf 7" loading="lazy">
                     </div>
                 </div>
             </div>
@@ -231,10 +294,10 @@
     <div class="album-overlay">
         <div class="album-overlay-content">
             <button class="close-overlay">×</button>
-            <img src="" alt="Büyütülmüş fotoğraf">
+            <img src="" alt="Büyütülmüş fotoğraf" loading="lazy">
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>

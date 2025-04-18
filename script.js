@@ -8,8 +8,105 @@ document.querySelectorAll('[data-page]').forEach(item => {
         document.getElementById(pageId).classList.add('active');
         window.scrollTo(0, 0);
         initializeAnimations();
+        
+        // Galeri sayfası açıldığında video ve resimlerin yüklenmesini başlat
+        if (pageId === 'gallery') {
+            initializeGallery();
+        }
     });
 });
+
+// Galeri yükleme işlemleri için yeni bir fonksiyon
+function initializeGallery() {
+    // Video elementlerinin yüklenmesini ve thumbnail oluşturmayı optimize et
+    const videoElements = document.querySelectorAll('.gallery-item video');
+    
+    // Videoları sırayla, gecikmeli olarak yükle
+    videoElements.forEach((video, index) => {
+        setTimeout(() => {
+            setupVideoThumbnail(video);
+        }, index * 150); // Her video için 150ms gecikme
+    });
+}
+
+// Video thumbnail ve süre bilgisi oluşturma fonksiyonu
+function setupVideoThumbnail(video) {
+    // Video yüklendiğinde süre bilgisini güncelle
+    video.addEventListener('loadedmetadata', function() {
+        const durationElement = video.parentElement.querySelector('.video-duration');
+        if (durationElement) {
+            const duration = Math.round(video.duration);
+            durationElement.textContent = formatTime(duration);
+        }
+        
+        // Video yükleniyor göstergesini gizle
+        const loadingElement = video.parentElement.querySelector('.video-loading');
+        if (loadingElement) {
+            loadingElement.style.display = 'none';
+        }
+        
+        // Videonun ilk karesini thumbnail olarak ayarla
+        if (video.readyState >= 2) {
+            createThumbnail(video);
+        }
+    });
+    
+    // Video hata verirse
+    video.addEventListener('error', function() {
+        const loadingElement = video.parentElement.querySelector('.video-loading');
+        if (loadingElement) {
+            loadingElement.style.display = 'none';
+            loadingElement.textContent = 'Yüklenemiyor';
+        }
+    });
+}
+
+// Video thumbnail oluşturma fonksiyonu
+function createThumbnail(video) {
+    try {
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const dataURL = canvas.toDataURL();
+        
+        // Canvas'ı temizle
+        canvas.remove();
+        
+        // Video üzerine tıklanınca oynatılacak şekilde ayarla
+        const playButton = video.parentElement.querySelector('.play-button');
+        if (playButton) {
+            playButton.style.display = 'flex';
+            playButton.addEventListener('click', function() {
+                if (video.paused) {
+                    video.play();
+                    playButton.innerHTML = '<i class="fas fa-pause"></i>';
+                } else {
+                    video.pause();
+                    playButton.innerHTML = '<i class="fas fa-play"></i>';
+                }
+            });
+        }
+        
+        // Video bittiğinde play butonu göster
+        video.addEventListener('ended', function() {
+            if (playButton) {
+                playButton.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        });
+    } catch (error) {
+        console.error('Thumbnail oluşturulamadı:', error);
+    }
+}
+
+// Zaman formatı fonksiyonu (00:00 şeklinde)
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+}
+
 function initializeAnimations() {
     gsap.to('.hero h1', {
         opacity: 1,
@@ -48,6 +145,7 @@ function initializeAnimations() {
         });
     });
 }
+
 const body = document.querySelector('body');
 const overlay = document.createElement('div');
 overlay.className = 'overlay';
@@ -104,24 +202,67 @@ document.addEventListener('keydown', (e) => {
 const galleryItems = document.querySelectorAll('.gallery-item img');
 const galleryOverlay = document.querySelector('.gallery-overlay');
 const overlayImage = document.querySelector('.gallery-overlay img');
+
+// Resimlere tıklama işlemi
 galleryItems.forEach(item => {
     item.addEventListener('click', () => {
         overlayImage.src = item.src;
+        document.querySelector('.gallery-overlay video').src = '';
+        overlayImage.style.display = 'block';
+        document.querySelector('.gallery-overlay video').style.display = 'none';
         galleryOverlay.classList.add('active');
     });
 });
-galleryOverlay.addEventListener('click', () => {
-    galleryOverlay.classList.remove('active');
+
+// Video tıklama işlemi için yeni bir işleyici ekle
+document.querySelectorAll('.gallery-item.video').forEach(videoItem => {
+    videoItem.addEventListener('click', (e) => {
+        // Play butonuna tıklama durumunu kontrol et
+        if (!e.target.closest('.play-button')) {
+            const video = videoItem.querySelector('video');
+            const galleryOverlayVideo = document.querySelector('.gallery-overlay video');
+            galleryOverlayVideo.src = video.src;
+            overlayImage.src = '';
+            overlayImage.style.display = 'none';
+            galleryOverlayVideo.style.display = 'block';
+            galleryOverlay.classList.add('active');
+            
+            // Video'yu yükle ve oynat
+            galleryOverlayVideo.load();
+            galleryOverlayVideo.play();
+        }
+    });
 });
+
+// Overlay'i kapatma işlemi
+galleryOverlay.addEventListener('click', (e) => {
+    if (e.target === galleryOverlay) {
+        galleryOverlay.classList.remove('active');
+        // Video durdur
+        const galleryOverlayVideo = document.querySelector('.gallery-overlay video');
+        if (galleryOverlayVideo.src) {
+            galleryOverlayVideo.pause();
+        }
+    }
+});
+
+// Escape tuşu ile overlay'i kapatma
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         galleryOverlay.classList.remove('active');
+        // Video durdur
+        const galleryOverlayVideo = document.querySelector('.gallery-overlay video');
+        if (galleryOverlayVideo.src) {
+            galleryOverlayVideo.pause();
+        }
+        
         if (expandedCard) {
             expandedCard.classList.remove('expanded');
             expandedCard = null;
         }
     }
 });
+
 const aboutSections = {
     'who': {
         title: 'Ben Kimim?',
@@ -237,7 +378,7 @@ const translations = {
             },
             favorites: {
                 title: "Benim *En*lerim",
-                text: "Dizi olarak Mr Robot ve Dexter favorilerim. Anime olarak One Piece favorim. Kitaplarda ise Vadideki Zambak en çok beğendiğim eser, şu sıralar dinlediğim müziklere radyo ikonundan erişebilirsiniz. Programlama konusunda React ve Go kullanmayı severim."
+                text: "Dizi olarak Mr Robot ve Dexter favorilerim. Anime olarak One Piece favorilerim. Kitaplarda ise Vadideki Zambak en çok beğendiğim eser, şu sıralar dinlediğim müziklere radyo ikonundan erişebilirsiniz. Programlama konusunda React ve Go kullanmayı severim."
             },
             social: {
                 title: "Sosyal Medya",
@@ -650,15 +791,18 @@ document.querySelectorAll('.gallery-item.video video').forEach(video => {
         video.parentElement.querySelector('.video-loading').style.display = 'none';
     });
 });
-const overlayVideo = document.querySelector('.gallery-overlay video');
-overlayVideo.addEventListener('play', function() {
+
+// Overlay videosuna event listener'lar ekle
+document.querySelector('.gallery-overlay video').addEventListener('play', function() {
     const playButton = document.querySelector('.gallery-overlay .play-button');
     if (playButton) playButton.style.opacity = '0';
 });
-overlayVideo.addEventListener('pause', function() {
+
+document.querySelector('.gallery-overlay video').addEventListener('pause', function() {
     const playButton = document.querySelector('.gallery-overlay .play-button');
     if (playButton) playButton.style.opacity = '1';
 });
+
 let quoteClickCount = 0;
 const quote = document.querySelector('.quote');
 const maxBrightness = 3;
@@ -1126,3 +1270,133 @@ function updateAlbum(direction) {
         }
     );
 }
+
+// Galeri için video optimizasyonu
+document.addEventListener('DOMContentLoaded', function() {
+    const galleryPage = document.getElementById('gallery');
+    const galleryItems = document.querySelectorAll('.gallery-item.video');
+    let galleryLoadStarted = false;
+    let isGalleryActive = false;
+    
+    // Video thumbnail ve süre ayarlaması için yardımcı fonksiyon
+    function setupVideoThumbnail(video) {
+        // Video yüklendikten sonra süre bilgisini ekleyelim
+        video.addEventListener('loadedmetadata', function() {
+            const minutes = Math.floor(video.duration / 60);
+            const seconds = Math.floor(video.duration % 60);
+            const durationText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            video.parentElement.querySelector('.video-duration').textContent = durationText;
+            
+            // Video'nun ilk karesi thumbnail olarak kullanılsın
+            if (!video.hasAttribute('poster')) {
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                try {
+                    const dataURL = canvas.toDataURL('image/jpeg');
+                    video.setAttribute('poster', dataURL);
+                } catch (e) {
+                    console.error('Video thumbnail oluşturulamadı:', e);
+                }
+            }
+        });
+        
+        // Yükleme ve oynatma durumları için event listener'lar
+        video.addEventListener('waiting', function() {
+            video.parentElement.querySelector('.video-loading').style.display = 'block';
+        });
+        
+        video.addEventListener('playing', function() {
+            video.parentElement.querySelector('.video-loading').style.display = 'none';
+        });
+    }
+    
+    // Sayfa yüklendiğinde gerçek video kaynaklarını depolamak için
+    galleryItems.forEach(item => {
+        const video = item.querySelector('video');
+        // Gerçek kaynağı data özelliği olarak depolayalım
+        video.dataset.src = video.src;
+    });
+    
+    // Galeri sayfasına geçiş algılama ve video yükleme
+    function handleGalleryVisibility() {
+        isGalleryActive = galleryPage.classList.contains('active');
+        
+        if (isGalleryActive && !galleryLoadStarted) {
+            galleryLoadStarted = true;
+            
+            // Galeri aktifleştiğinde videoları yükleyelim
+            galleryItems.forEach((item, index) => {
+                const video = item.querySelector('video');
+                
+                // Her video için thumbnail ve süre ayarlaması
+                setupVideoThumbnail(video);
+                
+                // Videonun src'si zaten dolu değilse, data-src'den dolduralım
+                if (!video.src || video.src.includes('blob:') || video.src === '') {
+                    // Videoları sırayla, küçük bir gecikmeyle yükleyelim (sayfa performansı için)
+                    setTimeout(() => {
+                        video.src = video.dataset.src;
+                        
+                        // Video başlangıç karesi için kısa bir süre sonra
+                        // metadata yüklendikten sonra thumbnail oluşturalım
+                        setTimeout(() => {
+                            if (video.readyState >= 1 && !video.hasAttribute('poster')) {
+                                try {
+                                    const canvas = document.createElement('canvas');
+                                    canvas.width = video.videoWidth;
+                                    canvas.height = video.videoHeight;
+                                    const ctx = canvas.getContext('2d');
+                                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                                    const dataURL = canvas.toDataURL('image/jpeg');
+                                    video.setAttribute('poster', dataURL);
+                                } catch (e) {
+                                    console.error('Video thumbnail oluşturulamadı:', e);
+                                }
+                            }
+                        }, 500);
+                    }, index * 150); // Her video için 150ms gecikme
+                } else {
+                    // Video zaten yüklüyse, süre bilgisini hemen gösterelim
+                    if (video.readyState >= 1) {
+                        const minutes = Math.floor(video.duration / 60);
+                        const seconds = Math.floor(video.duration % 60);
+                        const durationText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                        video.parentElement.querySelector('.video-duration').textContent = durationText;
+                    }
+                }
+            });
+        }
+    }
+    
+    // Sayfa değişikliklerini dinleyelim
+    document.querySelectorAll('[data-page]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            handleGalleryVisibility();
+        });
+    });
+    
+    // Mobil galeri butonuna tıklanınca da handleGalleryVisibility() çağrılsın
+    const mobileGalleryBtn = document.querySelector('.mobile-gallery-btn');
+    if (mobileGalleryBtn) {
+        mobileGalleryBtn.addEventListener('click', handleGalleryVisibility);
+    }
+    
+    // İlk yükleme kontrolü
+    handleGalleryVisibility();
+});
+
+// Sayfa ilk yüklendiğinde galeri sayfası açıksa, galeriyi başlat
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('gallery').classList.contains('active')) {
+        initializeGallery();
+    }
+    
+    // İlk animasyonları başlat
+    initializeAnimations();
+    
+    // Galeri görünürlüğünü güncelle
+    updateGalleryVisibility();
+});
