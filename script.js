@@ -803,600 +803,108 @@ document.querySelector('.gallery-overlay video').addEventListener('pause', funct
     if (playButton) playButton.style.opacity = '1';
 });
 
-let quoteClickCount = 0;
-const quote = document.querySelector('.quote');
-const maxBrightness = 3;
-const maxTextShadow = 5; 
-quote.addEventListener('click', () => {
-    quoteClickCount++;
-    if (quoteClickCount <= 10) {
-        const brightness = 1 + (quoteClickCount * 0.2);
-        const glowSize = quoteClickCount * 0.5; 
-        gsap.to(quote, {
-            filter: `brightness(${brightness})`,
-            textShadow: `0 0 ${glowSize}px rgba(255, 255, 255, 0.8)`,
-            duration: 0.3,
-            ease: "power2.out"
-        });
-        if (quoteClickCount === 10) {
-            gsap.to(quote, {
-                filter: `brightness(${maxBrightness}) blur(5px)`,
-                textShadow: `0 0 ${maxTextShadow}px rgba(255, 255, 255, 0.8)`,
-                opacity: 0,
-                duration: 0.5,
-                ease: "power2.out",
-                onComplete: () => {
-                    const loveMessages = {
-                        'tr': 'Sizi seviyorum <span class="heart-emoji">❤️</span>',
-                        'en': 'I love all of you <span class="heart-emoji">❤️</span>',
-                        'pl': 'Kocham was wszystkich <span class="heart-emoji">❤️</span>',
-                        'de': 'Ich liebe euch alle <span class="heart-emoji">❤️</span>'
-                    };
-                    quote.innerHTML = loveMessages[currentLang];
-                    gsap.to(quote, {
-                        filter: `brightness(${maxBrightness}) blur(0px)`,
-                        opacity: 1,
-                        duration: 0.5,
-                        ease: "power2.in"
-                    });
-                }
-            });
-        }
-    } else if (quoteClickCount <= 20) {
-        const remainingClicks = 20 - quoteClickCount;
-        const brightness = 1 + (remainingClicks * 0.2);
-        const glowSize = remainingClicks * 0.5;
-        gsap.to(quote, {
-            filter: `brightness(${brightness})`,
-            textShadow: `0 0 ${glowSize}px rgba(255, 255, 255, 0.8)`,
-            duration: 0.3,
-            ease: "power2.out"
-        });
-        if (quoteClickCount === 20) {
-            gsap.to(quote, {
-                filter: 'brightness(1) blur(5px)',
-                textShadow: '0 0 0px rgba(255, 255, 255, 0.8)',
-                opacity: 0,
-                duration: 0.5,
-                ease: "power2.out",
-                onComplete: () => {
-                    quote.textContent = translations[currentLang].hero.quote;
-                    gsap.to(quote, {
-                        filter: 'brightness(1) blur(0px)',
-                        opacity: 1,
-                        textShadow: '0 0 0px rgba(255, 255, 255, 0.8)',
-                        duration: 0.5,
-                        ease: "power2.in"
-                    });
-                    quoteClickCount = 0;
-                }
-            });
-        }
-    }
-});
-quote.addEventListener('mouseenter', () => {
-    if (quoteClickCount < 10) {
-        gsap.to(quote, {
-            scale: 1.02,
-            duration: 0.3,
-            ease: "power2.out"
-        });
-    }
-});
-quote.addEventListener('mouseleave', () => {
-    if (quoteClickCount < 10) {
-        gsap.to(quote, {
-            scale: 1,
-            duration: 0.3,
-            ease: "power2.out"
-        });
-    }
-});
-document.querySelector('.mobile-gallery-btn').addEventListener('click', function() {
-    document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active');
-    });
-    document.getElementById('gallery').classList.add('active');
-    window.scrollTo(0, 0);
-    updateGalleryVisibility();
-});
-let bClickCount = 0;
-const easterEggAudio = new Audio('assets/music/byz.mp3');
-let beyzaMode = false;
-function initBeyzaEasterEgg() {
-    const heroText = document.querySelector('.hero p');
-    const firstB = heroText.textContent.charAt(0);
-    const restOfText = heroText.textContent.slice(1);
-    heroText.innerHTML = `<span class="b-letter">${firstB}</span><span class="rest-of-text">${restOfText}</span>`;
-    const bLetter = document.querySelector('.b-letter');
-    bLetter.addEventListener('click', (e) => {
-        e.stopPropagation();
-        bClickCount++;
-        if (bClickCount === 26 && !beyzaMode) {
-            triggerBeyzaAnimation();
-        } else if (bClickCount === 52 && !beyzaMode) {
-            triggerShakeAnimation();
-            bClickCount = 0; 
-        }
-    });
-}
-function triggerBeyzaAnimation() {
-    beyzaMode = true;
-    const bLetter = document.querySelector('.b-letter');
-    const restOfText = document.querySelector('.rest-of-text');
-    const hero = document.querySelector('.hero');
-    const waves = document.querySelector('.background-waves');
-    const heroTitle = document.querySelector('.hero h1');
-    const heroBtn = document.querySelector('.hero-button');
-    const quote = document.querySelector('.quote');
-    bLetter.style.cssText = `
-        position: fixed;
-        z-index: 9999;
-        pointer-events: none;
-        filter: none !important;
-    `;
-    easterEggAudio.currentTime = 36;
-    easterEggAudio.volume = 0.02;
-    easterEggAudio.play();
-    const endTime = 63;
-    const fadeOutStart = endTime - 5;
-    const audioCheck = setInterval(() => {
-        if (easterEggAudio.currentTime >= fadeOutStart) {
-            gsap.to(easterEggAudio, {
-                volume: 0,
-                duration: 5,
-                ease: "power1.out",
-                onComplete: () => {
-                    easterEggAudio.pause();
-                    clearInterval(audioCheck);
-                    resetBeyzaMode();
-                }
-            });
-        }
-        if (easterEggAudio.currentTime >= endTime) {
-            clearInterval(audioCheck);
-        }
-    }, 100);
-    gsap.to(waves, {
-        filter: 'blur(20px)',
-        opacity: 0.1,
-        duration: 1,
-        pointerEvents: 'none'
-    });
-    gsap.to([heroTitle, heroBtn, quote], {
-        filter: 'blur(25px)',
-        opacity: 0.1,
-        duration: 1,
-        pointerEvents: 'none'
-    });
-    gsap.to(restOfText, {
-        opacity: 0,
-        duration: 1,
-        pointerEvents: 'none'
-    });
-    gsap.to(bLetter, {
-        top: '50%',
-        left: '50%',
-        xPercent: -50,
-        yPercent: -50,
-        scale: 3,
-        duration: 1.5,
-        ease: "power2.inOut",
-        onComplete: () => {
-            gsap.to(bLetter, {
-                scale: 8,
-                rotation: 720,
-                opacity: 0,
-                duration: 0.3,
-                ease: "power4.out",
-                onComplete: () => {
-                    const heartMessages = {
-                        'tr': 'Kalbim... ❤️',
-                        'en': 'My Heart... ❤️',
-                        'pl': 'Moje Serce... ❤️',
-                        'de': 'Mein Herz... ❤️'
-                    };
-                    bLetter.innerHTML = heartMessages[currentLang];
-                    bLetter.classList.add('beyza-mode');
-                    gsap.to(bLetter, {
-                        scale: 2.5,
-                        rotation: 0,
-                        opacity: 1,
-                        duration: 0.5,
-                        ease: "elastic.out(1, 0.5)",
-                        onComplete: () => {
-                            startHeartEmitter(hero, bLetter);  
-                            applyShakeEffect(bLetter);
-                            const bNavItem = document.querySelector('.menu-item[data-page="b"]');
-                            if(bNavItem) {
-                                bNavItem.textContent = 'B?'; 
-                                bNavItem.style.display = 'block';
-                            }
-                            const mobileBBtn = document.querySelector('.mobile-b-btn');
-                            if (mobileBBtn) {
-                                mobileBBtn.style.display = 'flex';
-                            }
-                        }
-                    });
-                }
-            });
-        }
-    });
-}
-function resetBeyzaMode() {
-    if (!beyzaMode) return;
-    beyzaMode = false;
-    const bLetter = document.querySelector('.b-letter');
-    const restOfText = document.querySelector('.rest-of-text');
-    const waves = document.querySelector('.background-waves');
-    const heroTitle = document.querySelector('.hero h1');
-    const heroBtn = document.querySelector('.hero-button');
-    const quote = document.querySelector('.quote');
-    gsap.killTweensOf([bLetter, waves, restOfText, heroBtn, heroTitle, quote]);
-    gsap.to([waves, heroTitle, heroBtn, quote], {
-        filter: 'blur(0)',
-        opacity: 1,
-        duration: 0.5,
-        pointerEvents: 'auto'
-    });
-    gsap.to(restOfText, {
-        opacity: 1,
-        duration: 0.5,
-        pointerEvents: 'auto'
-    });
-    gsap.to(bLetter, {
-        position: 'relative',
-        scale: 0.5,
-        rotation: 0,
-        xPercent: 0,
-        yPercent: 0,
-        top: 'auto',
-        left: 'auto',
-        duration: 0.5,
-        ease: "power2.inOut",
-        onComplete: () => {
-            bLetter.classList.remove('beyza-mode');
-            bLetter.innerHTML = 'B';
-            gsap.to(bLetter, {
-                scale: 1,
-                duration: 0.5
-            });
-        }
-    });
-}
-function triggerShakeAnimation() {
-    const bLetter = document.querySelector('.b-letter');
-    gsap.to(bLetter, {
-        x: "random(-5, 5)",
-        y: "random(-5, 5)",
-        rotation: "random(-10, 10)",
-        duration: 0.1,
-        repeat: 10,
-        yoyo: true,
-        ease: "none",
-        onComplete: () => {
-            gsap.to(bLetter, {
-                x: 0,
-                y: 0,
-                rotation: 0,
-                duration: 0.2
-            });
-        }
-    });
-}
 window.addEventListener('load', () => {
-    initBeyzaEasterEgg();
     updateGalleryVisibility();
     initializeAnimations();
 });
-function spawnHeartEmoji(target) {
-    const heart = document.createElement('span');
-    heart.innerHTML = '❤️';
-    heart.style.position = 'absolute';
-    heart.style.pointerEvents = 'none';
-    const rect = target.getBoundingClientRect();
-    heart.style.left = (rect.left + Math.random() * rect.width) + 'px';
-    heart.style.top = (rect.top + Math.random() * rect.height) + 'px';
-    document.body.appendChild(heart);
-    gsap.to(heart, {
-        y: -50 - Math.random() * 50,
-        opacity: 0,
-        scale: 1.5,
-        duration: 1.5,
-        ease: "power1.out",
-        onComplete: () => heart.remove()
-    });
-}
-function startHeartEmitter(container, target) {
-    spawnHeartEmoji(target);
-    setInterval(() => {
-        spawnHeartEmoji(target);
-    }, 150); 
-}
-function applyShakeEffect(element) {
-    gsap.to(element, {
-        rotation: 5,
-        duration: 0.3,
-        yoyo: true,
-        repeat: -1,
-        ease: "sine.inOut"
-    });
-}
+
 document.addEventListener('DOMContentLoaded', () => {
     const mobileBBtn = document.querySelector('.mobile-b-btn');
     if (mobileBBtn) {
         mobileBBtn.style.display = 'none';
-        mobileBBtn.addEventListener('click', () => {
-            bClickCount++; 
-            if (bClickCount < 26) {
-                console.log("Mobile B click count: " + bClickCount);
-            } else if (bClickCount === 26) {
-                triggerBeyzaAnimation();
-                const bNavItem = document.querySelector('.menu-item[data-page="b"]');
-                if (bNavItem) {
-                    bNavItem.textContent = 'B?';
-                    bNavItem.style.display = 'block';
-                }
-            }
-            if (bClickCount >= 26) {
-                document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-                document.getElementById('b').classList.add('active');
-                window.scrollTo(0, 0);
-            }
-        });
-    }
-});
-function initLoveGalleryAlbum() {
-    const gallery = document.querySelector('.romantic-gallery');
-    if (!gallery) return;
-    const images = gallery.querySelectorAll('.album-slides img');
-    let currentIndex = 0;
-    function updateAlbum(direction) {
-        const nextIndex = (currentIndex + direction + images.length) % images.length;
-        gsap.to(images[currentIndex], {
-            opacity: 0,
-            scale: direction > 0 ? 0.9 : 1.1,
-            duration: 0.5,
-            ease: "power2.inOut"
-        });
-        gsap.fromTo(images[nextIndex], 
-            {
-                opacity: 0,
-                scale: direction > 0 ? 1.1 : 0.9
-            },
-            {
-                opacity: 1,
-                scale: 1,
-                duration: 0.5,
-                ease: "power2.inOut"
-            }
-        );
-        images[currentIndex].classList.remove('active');
-        images[nextIndex].classList.add('active');
-        currentIndex = nextIndex;
-    }
-    const prevBtn = gallery.querySelector('.prev-album');
-    const nextBtn = gallery.querySelector('.next-album');
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => updateAlbum(-1));
-    }
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => updateAlbum(1));
-    }
-}
-window.addEventListener('load', () => {
-    initLoveGalleryAlbum();
-});
-const albumOverlay = document.querySelector('.album-overlay');
-const albumOverlayImg = albumOverlay.querySelector('img');
-const closeOverlayBtn = albumOverlay.querySelector('.close-overlay');
-function openAlbumOverlay(imgSrc) {
-    albumOverlayImg.src = imgSrc;
-    albumOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden'; 
-}
-function closeAlbumOverlay() {
-    albumOverlay.classList.remove('active');
-    document.body.style.overflow = ''; 
-}
-document.querySelectorAll('.album-slides img').forEach(img => {
-    img.addEventListener('click', (e) => {
-        e.stopPropagation(); 
-        if(e.target === img) { 
-            openAlbumOverlay(img.src);
-        }
-    });
-});
-document.querySelectorAll('.album-slides').forEach(slides => {
-    slides.addEventListener('click', (e) => {
-        if (e.target.tagName === 'IMG') {
-            openAlbumOverlay(e.target.src);
-        }
-    });
-});
-document.querySelectorAll('.album-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (btn.classList.contains('prev-album')) {
-            updateAlbum(-1);
-        } else if (btn.classList.contains('next-album')) {
-            updateAlbum(1);
-        }
-    });
-});
-closeOverlayBtn.addEventListener('click', closeAlbumOverlay);
-albumOverlay.addEventListener('click', (e) => {
-    if(e.target === albumOverlay) {
-        closeAlbumOverlay();
-    }
-});
-document.addEventListener('keydown', (e) => {
-    if(e.key === 'Escape' && albumOverlay.classList.contains('active')) {
-        closeAlbumOverlay();
-    }
-});
-document.querySelectorAll('.album-center-area').forEach(area => {
-    area.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const activeImg = area.closest('.album-container').querySelector('.album-slides img.active');
-        if (activeImg) {
-            openAlbumOverlay(activeImg.src);
-        }
-    });
-});
-function updateAlbum(direction) {
-    const gallery = document.querySelector('.romantic-gallery');
-    const images = gallery.querySelectorAll('.album-slides img');
-    let currentIndex = Array.from(images).findIndex(img => img.classList.contains('active'));
-    images[currentIndex].classList.remove('active');
-    const nextIndex = (currentIndex + direction + images.length) % images.length;
-    images[nextIndex].classList.add('active');
-    gsap.to(images[currentIndex], {
-        opacity: 0,
-        scale: direction > 0 ? 0.9 : 1.1,
-        duration: 0.4,
-        ease: "power2.inOut"
-    });
-    gsap.fromTo(images[nextIndex],
-        {
-            opacity: 0,
-            scale: direction > 0 ? 1.1 : 0.9
-        },
-        {
-            opacity: 1,
-            scale: 1,
-            duration: 0.4,
-            ease: "power2.inOut"
-        }
-    );
-}
-
-// Galeri için video optimizasyonu
-document.addEventListener('DOMContentLoaded', function() {
-    const galleryPage = document.getElementById('gallery');
-    const galleryItems = document.querySelectorAll('.gallery-item.video');
-    let galleryLoadStarted = false;
-    let isGalleryActive = false;
-    
-    // Video thumbnail ve süre ayarlaması için yardımcı fonksiyon
-    function setupVideoThumbnail(video) {
-        // Video yüklendikten sonra süre bilgisini ekleyelim
-        video.addEventListener('loadedmetadata', function() {
-            const minutes = Math.floor(video.duration / 60);
-            const seconds = Math.floor(video.duration % 60);
-            const durationText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-            video.parentElement.querySelector('.video-duration').textContent = durationText;
-            
-            // Video'nun ilk karesi thumbnail olarak kullanılsın
-            if (!video.hasAttribute('poster')) {
-                const canvas = document.createElement('canvas');
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                try {
-                    const dataURL = canvas.toDataURL('image/jpeg');
-                    video.setAttribute('poster', dataURL);
-                } catch (e) {
-                    console.error('Video thumbnail oluşturulamadı:', e);
-                }
-            }
-        });
-        
-        // Yükleme ve oynatma durumları için event listener'lar
-        video.addEventListener('waiting', function() {
-            video.parentElement.querySelector('.video-loading').style.display = 'block';
-        });
-        
-        video.addEventListener('playing', function() {
-            video.parentElement.querySelector('.video-loading').style.display = 'none';
-        });
     }
     
-    // Sayfa yüklendiğinde gerçek video kaynaklarını depolamak için
-    galleryItems.forEach(item => {
-        const video = item.querySelector('video');
-        // Gerçek kaynağı data özelliği olarak depolayalım
-        video.dataset.src = video.src;
-    });
+    // Quote tıklama özelliğini ekle
+    let quoteClickCount = 0;
+    const quote = document.querySelector('.quote');
+    const maxBrightness = 3;
+    const maxTextShadow = 5; 
     
-    // Galeri sayfasına geçiş algılama ve video yükleme
-    function handleGalleryVisibility() {
-        isGalleryActive = galleryPage.classList.contains('active');
-        
-        if (isGalleryActive && !galleryLoadStarted) {
-            galleryLoadStarted = true;
-            
-            // Galeri aktifleştiğinde videoları yükleyelim
-            galleryItems.forEach((item, index) => {
-                const video = item.querySelector('video');
-                
-                // Her video için thumbnail ve süre ayarlaması
-                setupVideoThumbnail(video);
-                
-                // Videonun src'si zaten dolu değilse, data-src'den dolduralım
-                if (!video.src || video.src.includes('blob:') || video.src === '') {
-                    // Videoları sırayla, küçük bir gecikmeyle yükleyelim (sayfa performansı için)
-                    setTimeout(() => {
-                        video.src = video.dataset.src;
-                        
-                        // Video başlangıç karesi için kısa bir süre sonra
-                        // metadata yüklendikten sonra thumbnail oluşturalım
-                        setTimeout(() => {
-                            if (video.readyState >= 1 && !video.hasAttribute('poster')) {
-                                try {
-                                    const canvas = document.createElement('canvas');
-                                    canvas.width = video.videoWidth;
-                                    canvas.height = video.videoHeight;
-                                    const ctx = canvas.getContext('2d');
-                                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                                    const dataURL = canvas.toDataURL('image/jpeg');
-                                    video.setAttribute('poster', dataURL);
-                                } catch (e) {
-                                    console.error('Video thumbnail oluşturulamadı:', e);
-                                }
-                            }
-                        }, 500);
-                    }, index * 150); // Her video için 150ms gecikme
-                } else {
-                    // Video zaten yüklüyse, süre bilgisini hemen gösterelim
-                    if (video.readyState >= 1) {
-                        const minutes = Math.floor(video.duration / 60);
-                        const seconds = Math.floor(video.duration % 60);
-                        const durationText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-                        video.parentElement.querySelector('.video-duration').textContent = durationText;
+    quote.addEventListener('click', () => {
+        quoteClickCount++;
+        if (quoteClickCount <= 10) {
+            const brightness = 1 + (quoteClickCount * 0.2);
+            const glowSize = quoteClickCount * 0.5; 
+            gsap.to(quote, {
+                filter: `brightness(${brightness})`,
+                textShadow: `0 0 ${glowSize}px rgba(255, 255, 255, 0.8)`,
+                duration: 0.3,
+                ease: "power2.out"
+            });
+            if (quoteClickCount === 10) {
+                gsap.to(quote, {
+                    filter: `brightness(${maxBrightness}) blur(5px)`,
+                    textShadow: `0 0 ${maxTextShadow}px rgba(255, 255, 255, 0.8)`,
+                    opacity: 0,
+                    duration: 0.5,
+                    ease: "power2.out",
+                    onComplete: () => {
+                        const loveMessages = {
+                            'tr': 'Sizi seviyorum <span class="heart-emoji">❤️</span>',
+                            'en': 'I love all of you <span class="heart-emoji">❤️</span>',
+                            'pl': 'Kocham was wszystkich <span class="heart-emoji">❤️</span>',
+                            'de': 'Ich liebe euch alle <span class="heart-emoji">❤️</span>'
+                        };
+                        quote.innerHTML = loveMessages[currentLang];
+                        gsap.to(quote, {
+                            filter: `brightness(${maxBrightness}) blur(0px)`,
+                            opacity: 1,
+                            duration: 0.5,
+                            ease: "power2.in"
+                        });
                     }
-                }
+                });
+            }
+        } else if (quoteClickCount <= 20) {
+            const remainingClicks = 20 - quoteClickCount;
+            const brightness = 1 + (remainingClicks * 0.2);
+            const glowSize = remainingClicks * 0.5;
+            gsap.to(quote, {
+                filter: `brightness(${brightness})`,
+                textShadow: `0 0 ${glowSize}px rgba(255, 255, 255, 0.8)`,
+                duration: 0.3,
+                ease: "power2.out"
+            });
+            if (quoteClickCount === 20) {
+                gsap.to(quote, {
+                    filter: 'brightness(1) blur(5px)',
+                    textShadow: '0 0 0px rgba(255, 255, 255, 0.8)',
+                    opacity: 0,
+                    duration: 0.5,
+                    ease: "power2.out",
+                    onComplete: () => {
+                        quote.textContent = translations[currentLang].hero.quote;
+                        gsap.to(quote, {
+                            filter: 'brightness(1) blur(0px)',
+                            opacity: 1,
+                            textShadow: '0 0 0px rgba(255, 255, 255, 0.8)',
+                            duration: 0.5,
+                            ease: "power2.in"
+                        });
+                        quoteClickCount = 0;
+                    }
+                });
+            }
+        }
+    });
+
+    quote.addEventListener('mouseenter', () => {
+        if (quoteClickCount < 10) {
+            gsap.to(quote, {
+                scale: 1.02,
+                duration: 0.3,
+                ease: "power2.out"
             });
         }
-    }
-    
-    // Sayfa değişikliklerini dinleyelim
-    document.querySelectorAll('[data-page]').forEach(btn => {
-        btn.addEventListener('click', function() {
-            handleGalleryVisibility();
-        });
     });
-    
-    // Mobil galeri butonuna tıklanınca da handleGalleryVisibility() çağrılsın
-    const mobileGalleryBtn = document.querySelector('.mobile-gallery-btn');
-    if (mobileGalleryBtn) {
-        mobileGalleryBtn.addEventListener('click', handleGalleryVisibility);
-    }
-    
-    // İlk yükleme kontrolü
-    handleGalleryVisibility();
-});
 
-// Sayfa ilk yüklendiğinde galeri sayfası açıksa, galeriyi başlat
-document.addEventListener('DOMContentLoaded', function() {
-    if (document.getElementById('gallery').classList.contains('active')) {
-        initializeGallery();
-    }
-    
-    // İlk animasyonları başlat
-    initializeAnimations();
-    
-    // Galeri görünürlüğünü güncelle
-    updateGalleryVisibility();
+    quote.addEventListener('mouseleave', () => {
+        if (quoteClickCount < 10) {
+            gsap.to(quote, {
+                scale: 1,
+                duration: 0.3,
+                ease: "power2.out"
+            });
+        }
+    });
 });
