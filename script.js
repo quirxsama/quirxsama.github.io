@@ -19,6 +19,7 @@ document.querySelectorAll('[data-page]').forEach(item => {
 // Galeri yükleme işlemleri için yeni bir fonksiyon
 function initializeGallery() {
     // Video elementlerinin yüklenmesini ve thumbnail oluşturmayı optimize et
+    // Gecikmeli
     const videoElements = document.querySelectorAll('.gallery-item video');
     
     // Videoları sırayla, gecikmeli olarak yükle
