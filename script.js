@@ -600,8 +600,8 @@ const songs = [
         src: "assets/music/music2.mp3"
     },
     {
-        title: "Show",
-        artist: "Ado",
+        title: "drinks or coffee",
+        artist: "ROSÉ",
         src: "assets/music/music3.mp3"
     }
 ];
