@@ -590,21 +590,52 @@ function toggleBackgroundWaves(show) {
 }
 const songs = [
     {
-        title: "Gül Pembe",
-        artist: "Barış Manço",
-        src: "assets/music/music1.mp3"
+      title: "Gülpembe",
+      artist: "Barış Manço",
+      src: "assets/music/music1.mp3"
     },
     {
-        title: "Dernière danse",
-        artist: "Indila",
-        src: "assets/music/music2.mp3"
+      title: "drinks or cofee",
+      artist: "Rosé",
+      src: "assets/music/music2.mp3"
     },
     {
-        title: "drinks or coffee",
-        artist: "ROSÉ",
-        src: "assets/music/music3.mp3"
+      title: "Die With A Smile",
+      artist: "Lady Gaga & Bruno Mars",
+      src: "assets/music/music3.mp3"
+    },
+    {
+      title: "Vengeance",
+      artist: "BIBI",
+      src: "assets/music/music4.mp3"
+    },
+    {
+      title: "Dernière danse",
+      artist: "Indila",
+      src: "assets/music/music5.mp3"
+    },
+    {
+      title: "Je Veux",
+      artist: "Zaz",
+      src: "assets/music/music6.mp3"
+    },
+    {
+      title: "number one girl",
+      artist: "Rosé",
+      src: "assets/music/music7.mp3"
+    },
+    {
+      title: "That That",
+      artist: "PSY & SUGA",
+      src: "assets/music/music8.mp3"
+    },
+    {
+      title: "Superman",
+      artist: "Eminem & Dina Rae",
+      src: "assets/music/music9.mp3"
     }
-];
+  ];
+
 let currentSong = 0;
 let isPlaying = false;
 const radioToggle = document.getElementById('radio-toggle');
@@ -635,9 +666,17 @@ audio.addEventListener('loadedmetadata', () => {
 });
 volumeControl.addEventListener('input', (e) => {
     const value = e.target.value;
-    audio.volume = value / 100;
+    // Logaritmik dönüşüm uygula 
+    // y = -(x-100)^2/10000 formülü ile ses seviyesini ayarla
+    // Bu formül 0-100 aralığında parabolik bir eğri oluşturur
+    const logVolume = -Math.pow(value - 100, 2) / 10000 + 1;
+    audio.volume = logVolume;
     updateVolumeIcon(value);
 });
+
+// Başlangıç ses seviyesini düşük ayarla
+audio.volume = 0.1;
+volumeControl.value = 30;
 function updateVolumeIcon(value) {
     volumeIcon.className = 'fas volume-icon';
     if (value == 0) volumeIcon.className += ' fa-volume-mute';
