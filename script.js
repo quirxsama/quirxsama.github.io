@@ -590,8 +590,8 @@ function toggleBackgroundWaves(show) {
 }
 const songs = [
     {
-      title: "Gülpembe",
-      artist: "Barış Manço",
+      title: "Espresso",
+      artist: "Sabrina Carpenter",
       src: "assets/music/music1.mp3"
     },
     {
@@ -600,23 +600,23 @@ const songs = [
       src: "assets/music/music2.mp3"
     },
     {
-      title: "Die With A Smile",
-      artist: "Lady Gaga & Bruno Mars",
+      title: "XO (only if you say yes)",
+      artist: "ENHYPEN",
       src: "assets/music/music3.mp3"
     },
     {
-      title: "Vengeance",
-      artist: "BIBI",
+      title: "Please Please Please",
+      artist: "Sabrina Carpenter",
       src: "assets/music/music4.mp3"
+    },
+    {
+      title: "earthquake",
+      artist: "JISOO",
+      src: "assets/music/music5.mp3"
     },
     {
       title: "Dernière danse",
       artist: "Indila",
-      src: "assets/music/music5.mp3"
-    },
-    {
-      title: "Je Veux",
-      artist: "Zaz",
       src: "assets/music/music6.mp3"
     },
     {
@@ -630,8 +630,8 @@ const songs = [
       src: "assets/music/music8.mp3"
     },
     {
-      title: "Superman",
-      artist: "Eminem & Dina Rae",
+      title: "CRAZY",
+      artist: "LE SSERAFIM",
       src: "assets/music/music9.mp3"
     }
   ];
