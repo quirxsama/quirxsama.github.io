@@ -215,7 +215,7 @@ galleryItems.forEach(item => {
     });
 });
 
-// Video tıklama işlemi için yeni bir işleyici ekle
+// Video tıklama işlemi için yeni bir işleyici ekledik
 document.querySelectorAll('.gallery-item.video').forEach(videoItem => {
     videoItem.addEventListener('click', (e) => {
         // Play butonuna tıklama durumunu kontrol et
@@ -267,12 +267,12 @@ document.addEventListener('keydown', (e) => {
 const aboutSections = {
     'who': {
         title: 'Ben Kimim?',
-        text: 'Ben Kaan (AKA: Quirx), 18 yaşındayım ve acemi bir geliştiriciyim. Antalya\'da yaşıyorum aynı zamanda sayısal bölümü 12. Sınıf öğrencisiyim.',
+        text: 'Ben Kaan, 18 yaşındayım ve acemi bir geliştiriciyim. Antalya\'da yaşıyorum, öğrenciyim.',
         next: 'what'
     },
     'what': {
         title: 'Ne Yaparım?',
-        text: 'Henüz acemi olsam da bir geliştiriciyim, HTML, CSS, JS, Python, Go, PHP öğreniyorum ve YKS\'ye hazırlanıyorum.',
+        text: 'Henüz acemi olsam da bir geliştiriciyim, HTML, CSS, JS, Python, Go, PHP öğreniyorum.',
         next: 'likes'
     },
     'likes': {
@@ -367,11 +367,11 @@ const translations = {
         about: {
             who: {
                 title: "Ben Kimim?",
-                text: "Ben Kaan, 18 yaşındayım ve acemi bir geliştiriciyim. Antalya'da yaşıyorum aynı zamanda sayısal bölümü 12. Sınıf öğrencisiyim."
+                text: "Ben Kaan, 18 yaşındayım ve acemi bir geliştiriciyim. Antalya'da yaşıyorum, öğrenciyim."
             },
             what: {
                 title: "Ne Yaparım?",
-                text: "Henüz acemi olsam da bir geliştiriciyim, HTML, CSS, JS, Python, Go, PHP öğreniyorum ve YKS'ye hazırlanıyorum."
+                text: "Henüz acemi olsam da bir geliştiriciyim, HTML, CSS, JS, Python, Go, PHP öğreniyorum."
             },
             likes: {
                 title: "Neler Severim?",
@@ -407,11 +407,11 @@ const translations = {
         about: {
             who: {
                 title: "Who Am I?",
-                text: "I'm Kaan, I'm 18 years old and I'm a beginner developer. I live in Antalya and I'm a 12th grade student in science section."
+                text: "I'm Kaan, I'm 18 years old and I'm a beginner developer. I live in Antalya, and I'm a student."
             },
             what: {
                 title: "What Do I Do?",
-                text: "Although I'm still a beginner, I'm a developer learning HTML, CSS, JS, Python, Go, PHP and preparing for university entrance exam."
+                text: "Although I'm still a beginner, I'm a developer learning HTML, CSS, JS, Python, Go, PHP."
             },
             likes: {
                 title: "What I Like?",
@@ -447,7 +447,7 @@ const translations = {
         about: {
             who: {
                 title: "Kim Jestem?",
-                text: "Jestem Kaan, mam 18 lat i jestem początkującym programistą. Mieszkam w Antalyi i jestem uczniem 12 klasy na kierunku ścisłym."
+                text: "Jestem Kaan, mam 18 lat i jestem początkującym programistą. Mieszkam w Antalyi, jestem studentem."
             },
             what: {
                 title: "Co Robię?",
@@ -487,7 +487,7 @@ const translations = {
         about: {
             who: {
                 title: "Wer bin ich?",
-                text: "Ich bin Kaan, ich bin 18 Jahre alt und ein Anfänger-Entwickler. Ich lebe in Antalya und bin ein Schüler der 12. Klasse im naturwissenschaftlichen Bereich."
+                text: "Ich bin Kaan, ich bin 18 Jahre alt und ein Anfänger-Entwickler. Ich lebe in Antalya und bin Student."
             },
             what: {
                 title: "Was mache ich?",
@@ -615,8 +615,8 @@ const songs = [
       src: "assets/music/music5.mp3"
     },
     {
-      title: "Dernière danse",
-      artist: "Indila",
+      title: "Bu Akşam Ölürüm",
+      artist: "Murat Kekilli",
       src: "assets/music/music6.mp3"
     },
     {
@@ -625,14 +625,19 @@ const songs = [
       src: "assets/music/music7.mp3"
     },
     {
-      title: "That That",
-      artist: "PSY & SUGA",
+      title: "Çıt Çıt Çedene",
+      artist: "Barış Manço",
       src: "assets/music/music8.mp3"
     },
     {
       title: "CRAZY",
       artist: "LE SSERAFIM",
       src: "assets/music/music9.mp3"
+    },
+    {
+      title: "Anlasana",
+      artist: "İlhan İrem",
+      src: "assets/music/music10.mp3"
     }
   ];
 
