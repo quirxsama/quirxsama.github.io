@@ -589,57 +589,57 @@ function toggleBackgroundWaves(show) {
     }
 }
 const songs = [
-    {
-      title: "Espresso",
-      artist: "Sabrina Carpenter",
-      src: "assets/music/music1.mp3"
-    },
-    {
-      title: "drinks or cofee",
-      artist: "Rosé",
-      src: "assets/music/music2.mp3"
-    },
-    {
-      title: "XO (only if you say yes)",
-      artist: "ENHYPEN",
-      src: "assets/music/music3.mp3"
-    },
-    {
-      title: "Please Please Please",
-      artist: "Sabrina Carpenter",
-      src: "assets/music/music4.mp3"
-    },
-    {
-      title: "earthquake",
-      artist: "JISOO",
-      src: "assets/music/music5.mp3"
-    },
-    {
-      title: "Bu Akşam Ölürüm",
-      artist: "Murat Kekilli",
-      src: "assets/music/music6.mp3"
-    },
-    {
-      title: "number one girl",
-      artist: "Rosé",
-      src: "assets/music/music7.mp3"
-    },
-    {
-      title: "Çıt Çıt Çedene",
-      artist: "Barış Manço",
-      src: "assets/music/music8.mp3"
-    },
-    {
-      title: "CRAZY",
-      artist: "LE SSERAFIM",
-      src: "assets/music/music9.mp3"
-    },
-    {
-      title: "Anlasana",
-      artist: "İlhan İrem",
-      src: "assets/music/music10.mp3"
-    }
-  ];
+  {
+    title: "Sogno d'Amor",
+    artist: "Andrea Cardillo",
+    src: "assets/music/music1.mp3"
+  },
+  {
+    title: "Resimdeki Gözyaşları",
+    artist: "Cem Karaca",
+    src: "assets/music/music2.mp3"
+  },
+  {
+    title: "Ayrılık",
+    artist: "Barış Manço",
+    src: "assets/music/music3.mp3"
+  },
+  {
+    title: "Anlasana",
+    artist: "Haluk Levent",
+    src: "assets/music/music4.mp3"
+  },
+  {
+    title: "Tu Vuo Fa L'Americano",
+    artist: "Renato Carosone",
+    src: "assets/music/music5.mp3"
+  },
+  {
+    title: "Love in Portofino",
+    artist: "Dalida",
+    src: "assets/music/music6.mp3"
+  },
+  {
+    title: "Çıt Çıt Çedene",
+    artist: "Barış Manço",
+    src: "assets/music/music7.mp3"
+  },
+  {
+    title: "Hit the Road Jack",
+    artist: "Ray Charles",
+    src: "assets/music/music8.mp3"
+  },
+  {
+    title: "La ballata dell'uomo in più",
+    artist: "Peppino Gagliardi",
+    src: "assets/music/music9.mp3"
+  },
+  {
+    title: "Una Notte a Napoli",
+    artist: "Pink Martini",
+    src: "assets/music/music10.mp3"
+  }
+];
 
 let currentSong = 0;
 let isPlaying = false;
